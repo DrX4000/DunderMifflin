@@ -10,8 +10,7 @@
     function include_header() {
         ?>
         <header>
-            <h1>The main title</h1>
-            <h2>Just a sub title</h2>
+            <h1>Connection</h1>
         </header>
         <?php
     }
@@ -20,7 +19,7 @@
     function include_footer() {
         ?>
         <footer>
-            Copyright!©️TAI <a href="mailto:">Contact</a>
+            Copyright!©️TAI <a href="mailto:">Dunder Mifflin</a>
         </footer>
         <?php
     }

@@ -2,7 +2,7 @@
 
 // if we are in the local environment
 $host = "localhost";
-$dbname = "tai";
+$dbname = "niveaudestock";
 $user = "root";
 $pwd = "";
 
