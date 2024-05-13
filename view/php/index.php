@@ -20,5 +20,6 @@
         <h1>Welcome</h1>
         <button onclick="window.location.href = 'logInOut.php'">LogIn</button>
     </main>
+    <?php include_footer(); ?>
 </body>
 </html>

@@ -19,8 +19,39 @@
     function include_footer() {
         ?>
         <footer>
-            Copyright!©️TAI <a href="mailto:">Dunder Mifflin</a>
-        </footer>
+        <div class="footer-container">
+            <p>Copyright © 2023 Dunder Mifflin. All rights reserved.</p>
+            <a href="#">Privacy Policy</a>
+            <span> | </span>
+            <a href="#">Contact</a>
+        </div>
+    </footer>
+    <style>
+        footer {
+            background-color: #f3f3f3;
+            padding: 20px 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .footer-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-container p {
+            margin: 0;
+        }
+
+        .footer-container a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .footer-container a:hover {
+            color: #007bff;
+        }
+    </style>
         <?php
     }
 
