@@ -34,12 +34,12 @@
             }
         ?>
 
-        <form method="post" action="loginController.php">
+        <form method="post" action="Stocks.php">
             <fieldset>
                 <legend>Login</legend>
                 <input type="text" placeholder="login" id="login" name="login">
                 <input type="password" placeholder='password' id='pwd' name="pwd">
-                <button type="submit">Submit</button>
+                <button type="submit" onclick="window.location.href = 'Stocks.php'">Submit</button>
             </fieldset>
         </form>
 
