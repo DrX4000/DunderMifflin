@@ -1,7 +1,6 @@
 <?php
     include_once __DIR__ . '/includes.php';
     include_once __DIR__ . '/../../model/php/env_settings.php';
-    include_header();
 
     $pourcentage_stock1 = 33;
     $pourcentage_stock2 = 33;
@@ -17,6 +16,8 @@
     <link rel="stylesheet" href="view/css/style4.css">
 </head>
 <body>
+
+    <?php include_header(); ?>
 
     <main>
         <section class="produits">
