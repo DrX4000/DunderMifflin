@@ -4,7 +4,7 @@ header {
     padding: 20px;
 }
 
-.container {
+header.container {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
@@ -12,24 +12,24 @@ header {
     align-items: center;
 }       
 
-.logo {
+header.logo {
     display: flex;
     align-items: center;
 }
 
-.logo img {
+header.logo img {
     width: 50px;
     height: 50px;
     margin-right: 10px;
 }
 
-.logo h1 {
+header.logo h1 {
     font-size: 1.5em;
     font-weight: bold;
     margin: 0;
 }
 
-.home-button {
+header.home-button {
     background-color: #fff;
     color: #333;
     padding: 10px 20px;
@@ -38,6 +38,33 @@ header {
     font-size: 1em;
 }
 
-.home-button:hover {
+header.home-button:hover {
     background-color: #ccc;
+}
+
+
+
+footer {
+    background-color: #f3f3f3;
+    padding: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-container p {
+    margin: 0;
+}
+
+.footer-container a {
+    color: #333;
+    text-decoration: none;
+}
+
+.footer-container a:hover {
+    color: #007bff;
 }

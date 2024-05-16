@@ -34,7 +34,7 @@
             }
         ?>
 
-        <form method="post" action="Stocks.php">
+        <form method="post" action="logController.php">
             <fieldset>
                 <legend>Login</legend>
                 <input type="text" placeholder="login" id="login" name="login">
