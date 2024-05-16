@@ -28,7 +28,6 @@ class UserModel extends DBModel {
         }
         // The request uses the MD5() functions since password should not be stored
         // without any protection in the database (i.e., use MD5() to store and retrieve passwords)
-        $request = "SELECT * FROM user WHERE login=:login AND mot_de_passe=MD5(:mot_de_passe)";
         $request = "SELECT * FROM utilisateur WHERE login=:login AND mot_de_passe=MD5(:mot_de_passe)";
         $statement = $this->db->prepare($request);
         $statement->execute([
