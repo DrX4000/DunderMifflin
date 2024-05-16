@@ -18,7 +18,8 @@
     <main>
         <img src="Images/logo.png" alt="Logo de l'entreprise"></img>
         <h1>Welcome</h1>
-        <button onclick="window.location.href = 'logInOut.php'">LogIn</button>
+        <button onclick="window.location.href = 'loginExample.php'">LogIn</button>
     </main>
+    <?php include_footer(); ?>
 </body>
 </html>

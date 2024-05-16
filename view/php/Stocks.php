@@ -1,3 +1,7 @@
+<?php
+    include_once __DIR__ . '/includes.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,20 +11,17 @@
     <link rel="stylesheet" href="style2.css">
 </head>
 <body>
-    <header>
-        <h1>
-            <img src="Images/logo.png" alt="">
-        </h1>
-    </header>
+    
+    <?php include_header(); ?>
 
     <main>
         <h2>Stocks</h2>
         
         <ul>
-            <li><button onclick="window.location.href = 'FB.html'">Fourniture de bureau</button></li>
-            <li><button onclick="window.location.href = 'Pap.html'">Papèterie</button></li>
-            <li><button onclick="window.location.href = 'FA.html'">Fourniture artisanats</button></li>
-            <li><button onclick="window.location.href = 'ME.html'">Matériaux d'emballage</button></li>
+            <li><button type="button" onclick="window.location.href = 'FB.php'">Fourniture de bureau</button></li>
+            <li><button type="button" onclick="window.location.href = 'Pap.html'">Papèterie</button></li>
+            <li><button type="button" onclick="window.location.href = 'FA.html'">Fourniture artisanats</button></li>
+            <li><button type="button" onclick="window.location.href = 'ME.html'">Matériaux d'emballage</button></li>
         </ul>
         <?php
         // Set up database connection
@@ -70,8 +71,7 @@ $conn->close();
 
     </main>
 
-    <footer>
-        <p>&copy; 2024 Dunder Mifflin-INC</p>
-    </footer>
+    <?php include_footer(); ?>
+
 </body>
 </html>
