@@ -13,17 +13,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fourniture de bureau</title>
-    <link rel="stylesheet" href="C:/Users/hugo.daroux/OneDrive - ESTIA/Documents/TraAppInt/DunderMifflin/view/css/style3.css">
+    <title>Papèterie</title>
+    <link rel="stylesheet" href="view/css/style4.css">
 </head>
 <body>
 
     <main>
         <section class="produits">
-            <h1>Fourniture de bureau</h1>
+            <h1>Papèterie</h1>
             <h2>Artciles</h2>
             <div class="produit">
-                <h3>Papier pour imprimante</h3>
+                <h3>Cahier</h3>
                 <div class="boutons">
                     <button class="ajouter">Ajouter</button>
                     <button class="supprimer">Supprimer</button>
@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="produit">
-                <h3>Papier coloré</h3>
+                <h3>Enveloppes</h3>
                 <div class="boutons">
                     <button class="ajouter">Ajouter</button>
                     <button class="supprimer">Supprimer</button>
@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="produit">
-                <h3>Papier spéciaux</h3>
+                <h3>Lettres / cartes postales</h3>
                 <div class="boutons">
                     <button class="ajouter">Ajouter</button>
                     <button class="supprimer">Supprimer</button>

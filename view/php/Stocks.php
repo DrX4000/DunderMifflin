@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stocks</title>
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="view/css/style2.css">
 </head>
 <body>
     
@@ -19,7 +19,7 @@
         
         <ul>
             <li><button onclick="window.location.href = '/view/php/FB.php'">Fourniture de bureau</button></li>
-            <li><button onclick="window.location.href = 'Pap.html'">Papèterie</button></li>
+            <li><button onclick="window.location.href = '/view/php/Pap.php'">Papèterie</button></li>
             <li><button onclick="window.location.href = 'FA.html'">Fourniture artisanats</button></li>
             <li><button onclick="window.location.href = 'ME.html'">Matériaux d'emballage</button></li>
         </ul>  
