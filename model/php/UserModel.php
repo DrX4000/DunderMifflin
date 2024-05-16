@@ -32,7 +32,7 @@ class UserModel extends DBModel {
         $statement = $this->db->prepare($request);
         $statement->execute([
             "login" => $login,
-            "mot_de_passe" => $password
+            "passeword" => $password
         ]);
         $entries = $statement->fetchAll();
         if (count($entries) == 1) {
