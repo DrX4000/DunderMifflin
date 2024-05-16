@@ -18,7 +18,7 @@
         <h2>Stocks</h2>
         
         <ul>
-            <li><button onclick="window.location.href = 'FB.html'">Fourniture de bureau</button></li>
+            <li><button onclick="window.location.href = '/view/php/FB.php'">Fourniture de bureau</button></li>
             <li><button onclick="window.location.href = 'Pap.html'">Papèterie</button></li>
             <li><button onclick="window.location.href = 'FA.html'">Fourniture artisanats</button></li>
             <li><button onclick="window.location.href = 'ME.html'">Matériaux d'emballage</button></li>

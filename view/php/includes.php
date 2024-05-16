@@ -18,10 +18,10 @@
         <header>
             <div class="container">
                 <div class="logo">
-                    <img src="Images/logo.png" alt="Company Logo">
+                    <img src="/view/php/Images/logo.png" alt="Company Logo">
                     <h1>Dunder Mifflin</h1>
                 </div>
-             <a href="index.php" class="home-button">Home</a>
+             <a href="/../../logController.php" class="home-button">Home</a>
              </div>
         </header>
         <?php
