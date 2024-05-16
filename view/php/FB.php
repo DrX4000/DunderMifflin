@@ -56,13 +56,13 @@
                 include_once (__DIR__ . '/../../model/php/env_settings.php');
 
                 // Récupérer les données de stock pour le produit 1
-                $sql = "SELECT stock, quantite FROM produit WHERE id = 1";
+                $sql = "SELECT stock.quantite, produit.nom_produit FROM stock INNER JOIN  produit ON produit.id = stock.id_produit WHERE id_produit = 1";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
                     // output data of each row
                     while($row = $result->fetch_assoc()) {
-                        $stock_total1 = $row["stock"];
+                        $stock_total1 = $row[""];
                         $stock_restant1 = $row["quantite"];
                     }
                 } else {
@@ -70,7 +70,7 @@
                 }
 
                 // Récupérer les données de stock pour le produit 2
-                $sql = "SELECT stock_total, stock_restant FROM produits WHERE id = 2";
+                $sql = "SELECT stock.quantite, produit.nom_produit FROM stock INNER JOIN  produit ON produit.id = stock.id_produit WHERE id_produit = 4";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -84,7 +84,7 @@
                 }
 
                 // Récupérer les données de stock pour le produit 3
-                $sql = "SELECT stock_total, stock_restant FROM produits WHERE id = 3";
+                $sql = "SELECT stock.quantite, produit.nom_produit FROM stock INNER JOIN  produit ON produit.id = stock.id_produit WHERE id_produit = 12";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
