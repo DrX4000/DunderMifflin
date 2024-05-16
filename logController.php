@@ -58,9 +58,9 @@
     // Otherwise, the view will simply display the login form
     // the form if not logged in, the welcome page if logged in
     if (isset($_SESSION['prenom'])) {
-        require_once(__DIR__."/view/php/Stocks.php");
+        require_once(__DIR__."/Stocks.php");
     }
     else {
-        require_once(__DIR__."/view/php/loginExample.php");
+        require_once(__DIR__."/dundermifflin/logController.php");
     }
 
