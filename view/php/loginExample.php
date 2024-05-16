@@ -40,7 +40,6 @@
                 <legend>Login</legend>
                 <input type="text" placeholder="login" id="login" name="login">
                 <input type="password" placeholder='password' id='password' name="password">
-                <input type="password" placeholder='password' id='pwd' name="password">
                 <button type="submit">Submit</button>
             </fieldset>
         </form>
