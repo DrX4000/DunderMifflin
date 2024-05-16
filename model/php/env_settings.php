@@ -7,7 +7,7 @@ $user = "root";
 $pwd = "";
 
 // if we are on the server
-if (file_exists("C:/DunderMifflin")) {
+if (file_exists("/DunderMifflin")) {
     $host = "dundermifflin";
     $dbname = "niveaudestock";
     $user = "root";
