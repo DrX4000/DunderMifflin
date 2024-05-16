@@ -49,7 +49,7 @@ $statement->execute([
 
 
 // Simple code to check if the user exists
-$request = "SELECT * FROM user WHERE login=:login and password = MD5(:pwd)";
+$request = "SELECT * FROM utilisateur WHERE login=:login and password = MD5(:pwd)";
 $statement = $db->prepare($request);
 $statement->execute(
     [
