@@ -63,4 +63,10 @@
     else {
         require_once(__DIR__."/view/php/loginExample.php");
     }
+?>
+
+    <script>
+    // Sauvegarder l'URL actuelle avant de naviguer
+    sessionStorage.setItem('previousPage', window.location.href);
+    </script>
 

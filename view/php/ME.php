@@ -22,33 +22,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Papèterie</title>
+    <title>Materiaux d'emballage</title>
     <link rel="stylesheet" href="view/css/style3.css">
-
-    <script>
-        function goBack() {
-            var previousPage = sessionStorage.getItem('previousPage');
-            if (previousPage) {
-                window.location.href = previousPage;
-            } else {
-                window.history.back();
-            }
-        }
-    </script>
-
 </head>
 <body>
 
     <?php include_header(); ?>
 
-    <button onclick="goBack()">Retour</button>
-    
     <main>
         <section class="produits">
-            <h1 class = "titre">Papèterie</h1>
+            <h1 class = "titre">Materiaux d'emballage</h1>
             <h2>Articles</h2>
             <div class="produit">
-                <h3>Cahier</h3>
+                <h3>Boîte en carton</h3>
                 <div class="boutons">
                     <button class="ajouter" data-produit="1">Ajouter</button>
                     <button class="supprimer" data-produit="1">Supprimer</button>
@@ -59,7 +45,7 @@
                 <div class="stock1" id="stockValue1">Stock actuel: <?php echo $stock1; ?></div>
             </div>
             <div class="produit">
-                <h3>Enveloppes</h3>
+                <h3>Sac en papier</h3>
                 <div class="boutons">
                     <button class="ajouter" data-produit="2">Ajouter</button>
                     <button class="supprimer" data-produit="2">Supprimer</button>
@@ -70,7 +56,7 @@
                 <div class="stock2" id="stockValue2">Stock actuel: <?php echo $stock2; ?></div>
             </div>
             <div class="produit">
-                <h3>Lettres / cartes postales</h3>
+                <h3>Papier d'emballage</h3>
                 <div class="boutons">
                     <button class="ajouter" data-produit="3">Ajouter</button>
                     <button class="supprimer" data-produit="3">Supprimer</button>
@@ -142,7 +128,6 @@
             bouton.addEventListener('click', afficherPopup);
         });
     </script>
-    
 </body>
 </html>
 
