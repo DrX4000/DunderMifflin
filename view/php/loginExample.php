@@ -23,8 +23,7 @@
         <title>Login Example</title>
     </head>
     <body>
-        
-        
+    
         <!-- PHP only used to display stuff -->
         <?php include_header(); ?>
         
