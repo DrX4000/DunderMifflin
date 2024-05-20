@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 13 mai 2024 à 09:46
--- Version du serveur : 8.2.0
--- Version de PHP : 8.2.13
+-- Généré le : lun. 20 mai 2024 à 19:50
+-- Version du serveur : 5.7.36
+-- Version de PHP : 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,10 +29,10 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `categories`;
 CREATE TABLE IF NOT EXISTS `categories` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nom_categories` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom_categories` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `categories`
@@ -52,13 +52,13 @@ INSERT INTO `categories` (`id`, `nom_categories`) VALUES
 
 DROP TABLE IF EXISTS `produit`;
 CREATE TABLE IF NOT EXISTS `produit` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `id_categories` int NOT NULL,
-  `nom_produit` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `ref_produit` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_categories` int(11) NOT NULL,
+  `nom_produit` varchar(255) NOT NULL,
+  `ref_produit` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_categories` (`id_categories`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `produit`
@@ -86,32 +86,35 @@ INSERT INTO `produit` (`id`, `id_categories`, `nom_produit`, `ref_produit`) VALU
 
 DROP TABLE IF EXISTS `stock`;
 CREATE TABLE IF NOT EXISTS `stock` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `id_produit` int NOT NULL,
-  `id_type_operation` int NOT NULL,
-  `id_utilisateur` int NOT NULL,
-  `quantite` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_produit` int(11) NOT NULL,
+  `id_type_operation` int(11) NOT NULL,
+  `id_utilisateur` int(11) NOT NULL,
+  `quantite` int(11) NOT NULL,
   `date_operation` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_produit` (`id_produit`),
   KEY `id_type_operation` (`id_type_operation`),
   KEY `id_type_utilisateur` (`id_utilisateur`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `stock`
 --
 
 INSERT INTO `stock` (`id`, `id_produit`, `id_type_operation`, `id_utilisateur`, `quantite`, `date_operation`) VALUES
-(1, 12, 2, 3, -2000, '2023-11-30 15:11:37'),
-(2, 4, 1, 2, 4000, '2023-08-01 15:13:43'),
-(3, 1, 1, 2, 10000, '2023-09-01 15:14:42'),
-(4, 12, 1, 2, 4000, '2023-10-30 15:17:56'),
-(5, 12, 3, 1, 2000, '2024-01-01 15:18:41'),
-(6, 1, 2, 2, -12000, '2023-10-01 15:28:21'),
-(7, 1, 1, 2, 10000, '2023-04-30 13:29:34'),
-(8, 1, 2, 2, -2000, '2023-05-10 15:30:07'),
-(9, 1, 3, 1, 34000, '2024-01-01 15:32:23');
+(1, 1, 1, 1, 50000, '2023-11-30 15:11:37'),
+(2, 2, 1, 1, 3000, '2023-08-01 15:13:43'),
+(3, 3, 1, 1, 7500, '2023-09-01 15:14:42'),
+(4, 4, 1, 1, 40000, '2023-10-30 15:17:56'),
+(5, 5, 1, 1, 25000, '2024-01-01 15:18:41'),
+(6, 6, 1, 1, 10000, '2023-10-01 15:28:21'),
+(7, 7, 1, 1, 15000, '2023-04-30 13:29:34'),
+(8, 8, 1, 1, 2500, '2023-05-10 15:30:07'),
+(9, 9, 1, 1, 5000, '2024-01-01 15:32:23'),
+(10, 10, 1, 1, 30000, '2024-01-01 15:18:41'),
+(11, 11, 1, 1, 30000, '2024-05-20 14:00:53'),
+(12, 12, 1, 1, 15000, '2024-05-20 14:01:19');
 
 -- --------------------------------------------------------
 
@@ -121,10 +124,10 @@ INSERT INTO `stock` (`id`, `id_produit`, `id_type_operation`, `id_utilisateur`, 
 
 DROP TABLE IF EXISTS `type_operation`;
 CREATE TABLE IF NOT EXISTS `type_operation` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nom_operation` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom_operation` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `type_operation`
@@ -143,10 +146,10 @@ INSERT INTO `type_operation` (`id`, `nom_operation`) VALUES
 
 DROP TABLE IF EXISTS `type_utilisateur`;
 CREATE TABLE IF NOT EXISTS `type_utilisateur` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `utilisateur` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `utilisateur` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `type_utilisateur`
@@ -164,23 +167,23 @@ INSERT INTO `type_utilisateur` (`id`, `utilisateur`) VALUES
 
 DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE IF NOT EXISTS `utilisateur` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `id_type_utilisateur` int NOT NULL,
-  `nom` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `prenom` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `login` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `mot_de_passe` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_type_utilisateur` int(11) NOT NULL,
+  `nom` varchar(255) NOT NULL,
+  `prenom` varchar(255) NOT NULL,
+  `login` varchar(255) NOT NULL,
+  `mot_de_passe` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_type_utilisateur` (`id_type_utilisateur`),
   KEY `id_type_utilisateur_2` (`id_type_utilisateur`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`id`, `id_type_utilisateur`, `nom`, `prenom`, `login`, `mot_de_passe`) VALUES
-(1, 1, 'SCOTT\r\n', 'Micheal', 'micheal.scott@dundermifflin.com', 'EatMyShorts'),
+(1, 1, 'SCOTT\r\n', 'Micheal', 'micheal.scott@dundermifflin.com', '172924aadec293666b805437b84c18d7'),
 (2, 2, 'CORDRAY', 'Danny', 'danny.cordray@dundermifflin.com', 'Th*s_is_a_diffiCULT_pw8'),
 (3, 2, 'BEESLY', 'Pam', 'pam.beesly@dundermufflin.com', 'revelation');
 
