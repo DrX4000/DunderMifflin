@@ -16,6 +16,7 @@
 
     <main>
         <h2>Stocks</h2>
+        </style>
         
         <ul>
             <li><button onclick="window.location.href = '/view/php/FB.php'">Fourniture de bureau</button></li>

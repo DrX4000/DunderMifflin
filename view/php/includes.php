@@ -74,6 +74,7 @@
             .home-button:hover {
                 background-color: #ccc;
             }
+            
     </style>
         </header>
         <?php
