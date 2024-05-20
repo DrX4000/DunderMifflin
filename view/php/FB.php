@@ -1,69 +1,91 @@
 <?php
-include_once __DIR__ . '/includes.php';
-include_once __DIR__ . '/../../model/php/env_settings.php';
+    include_once __DIR__ . '/includes.php';
+    include_once __DIR__ . '/../../model/php/env_settings.php';
 
-$host = 'localhost';
-$dbname = 'niveaudestock';
-$user = 'root';
-$password = '';
+    // Informations de connexion à la base de données
+    $host = "dundermifflin";
+    $user = "root";
+    $pwd = "";
+    $dbname = "niveaudestock";
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Créer une connexion
+    $conn = new mysqli($host, $user, $pwd, $dbname);
 
-    // Requête pour les stocks
-    $stmt1 = $pdo->prepare("SELECT * FROM `stock` WHERE id_produit = :id_produit");
-    $stmt1->execute(['id_produit' => 1]);
-    $result1 = $stmt1->fetch(PDO::FETCH_ASSOC);
-    $stock1 = $result1 ? $result1['quantite'] : 0;
+    // Vérification de la connexion
+    if ($conn->connect_error) {
+        die("Connexion échouée: " . $conn->connect_error);
+    }
 
-    $stmt2 = $pdo->prepare("SELECT * FROM `stock` WHERE id_produit = :id_produit");
-    $stmt2->execute(['id_produit' => 2]);
-    $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-    $stock2 = $result2 ? $result2['quantite'] : 0;
+    // Récupération de la quantité pour id_produit = 1
+    $id_produit_1= 1;
+    $sql_stock1 = "SELECT quantite FROM stock WHERE id_produit = $id_produit_1 ";
+    $result_stock1 = $conn->query($sql_stock1);
+    if ($result_stock1 && $result_stock1->num_rows > 0) {
+        $row_stock1 = $result_stock1->fetch_assoc();
+        $stock1 = $row_stock1['quantite'];
+    } else {
+        $stock1 = 0; // Stock par défaut si aucun résultat trouvé
+    }
 
-    $stmt3 = $pdo->prepare("SELECT * FROM `stock` WHERE id_produit = :id_produit");
-    $stmt3->execute(['id_produit' => 3]);
-    $result3 = $stmt3->fetch(PDO::FETCH_ASSOC);
-    $stock3 = $result3 ? $result3['quantite'] : 0;
+    // Récupération de la quantité pour id_produit = 2
+    $id_produit_2 = 2;
+    $sql_stock2 = "SELECT quantite FROM stock WHERE id_produit = $id_produit_2";
+    $result_stock2 = $conn->query($sql_stock2);
+    if ($result_stock2 && $result_stock2->num_rows > 0) {
+        $row_stock2 = $result_stock2->fetch_assoc();
+        $stock2 = $row_stock2['quantite'];
+    } else {
+        $stock2 = 0; // Stock par défaut si aucun résultat trouvé
+    }
 
-    // Définir les stocks maximum
-    $stock_max1 = 12000;
+    // Récupération de la quantité pour id_produit = 3
+    $id_produit_3 = 3;
+    $sql_stock3 = "SELECT quantite FROM stock WHERE id_produit = $id_produit_3";
+    $result_stock3 = $conn->query($sql_stock3);
+    if ($result_stock3 && $result_stock3->num_rows > 0) {
+        $row_stock3 = $result_stock3->fetch_assoc();
+        $stock3 = $row_stock3['quantite'];
+    } else {
+        $stock3 = 0; // Stock par défaut si aucun résultat trouvé
+    }
+
+    function updateStockQuantity($conn, $id_produit, $newQuantity) {
+        $sql_update_stock = "UPDATE stock SET quantite = ? WHERE id_produit = ?";
+        $stmt = $conn->prepare($sql_update_stock);
+        $stmt->bind_param("ii", $newQuantity, $id_produit);
+        $stmt->execute();
+        $stmt->close();
+    }   
+
+    // Fermeture de la connexion
+    $conn->close();
+
+
+    // Stocks maximum
+    $stock_max1 = 10000;
     $stock_max2 = 6000;
     $stock_max3 = 15000;
 
-    // Calcul des pourcentages de stock
     $pourcentage_stock1 = ($stock1 / $stock_max1) * 100;
     $pourcentage_stock2 = ($stock2 / $stock_max2) * 100;
     $pourcentage_stock3 = ($stock3 / $stock_max3) * 100;
-
-} catch (PDOException $e) {
-    die("Erreur de connexion à la base de données : " . $e->getMessage());
-}
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Stocks</title>
-    <style>
-        .progress-container {
-            width: 100%;
-            background-color: #f3f3f3;
-            border-radius: 12px;
-        }
-        .progress-bar {
-            height: 12px;
-            border-radius: 12px;
-        }
-    </style>
+    <title>Fourniture de bureau</title>
+    <link rel="stylesheet" href="view/css/style3.css">
 </head>
 <body>
+
+    <?php include_header(); ?>
+    
     <main>
         <section class="produits">
-            <h1 class="titre">Fourniture de bureau</h1>
+            <h1 class = "titre">Fourniture de bureau</h1>
             <h2>Articles</h2>
             <div class="produit">
                 <h3>Papier pour imprimante</h3>
@@ -72,9 +94,9 @@ try {
                     <button class="supprimer" data-produit="1">Supprimer</button>
                 </div>
                 <div class="progress-container">
-                    <div class="progress-bar" id="stockProgress1" style="background-color: blue; width: <?= htmlspecialchars($pourcentage_stock1); ?>%;"></div>
+                    <div class="progress-bar" id="stockProgress1" style="background-color: blue; height: 12px; width: <?php echo $pourcentage_stock1; ?>%;"></div>
                 </div>
-                <div class="stock1" id="stockValue1">Stock actuel: <?= htmlspecialchars($stock1); ?></div>
+                <div class="stock1" id="stockValue1">Stock actuel: <?php echo $stock1; ?></div>
             </div>
             <div class="produit">
                 <h3>Papier coloré</h3>
@@ -83,9 +105,9 @@ try {
                     <button class="supprimer" data-produit="2">Supprimer</button>
                 </div>
                 <div class="progress-container">
-                    <div class="progress-bar" id="stockProgress2" style="background-color: blue; width: <?= htmlspecialchars($pourcentage_stock2); ?>%;"></div>
+                    <div class="progress-bar" id="stockProgress2" style="background-color: blue; height: 12px; width: <?php echo $pourcentage_stock2; ?>%;"></div>
                 </div>
-                <div class="stock2" id="stockValue2">Stock actuel: <?= htmlspecialchars($stock2); ?></div>
+                <div class="stock2" id="stockValue2">Stock actuel: <?php echo $stock2; ?></div>
             </div>
             <div class="produit">
                 <h3>Papier spéciaux</h3>
@@ -94,182 +116,140 @@ try {
                     <button class="supprimer" data-produit="3">Supprimer</button>
                 </div>
                 <div class="progress-container">
-                    <div class="progress-bar" id="stockProgress3" style="background-color: blue; width: <?= htmlspecialchars($pourcentage_stock3); ?>%;"></div>
+                    <div class="progress-bar" id="stockProgress3" style="background-color: blue; height: 12px; width: <?php echo $pourcentage_stock3; ?>%;"></div>
                 </div>
-                <div class="stock3" id="stockValue3">Stock actuel: <?= htmlspecialchars($stock3); ?></div>
+                <div class="stock3" id="stockValue3">Stock actuel: <?php echo $stock3; ?></div>
             </div>
+
         </section>
     </main>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Récupérer les boutons et ajouter des écouteurs d'événements
-            const ajouterBoutons = document.querySelectorAll('.ajouter');
-            const supprimerBoutons = document.querySelectorAll('.supprimer');
-
-            // Stocks maximums en JavaScript
-            const stockMax1 = <?= $stock_max1; ?>;
-            const stockMax2 = <?= $stock_max2; ?>;
-            const stockMax3 = <?= $stock_max3; ?>;
-
-            // Fonction pour afficher le popup et mettre à jour les pourcentages
-            function afficherPopup(event) {
-                const produit = event.target.dataset.produit;
-                const montant = prompt("Entrez le montant à modifier :");
-
-                // Vérifier si un montant valide a été saisi
-                if (montant !== null && !isNaN(montant) && parseInt(montant) > 0) {
-                    const pourcentageStock = document.getElementById(`stockProgress${produit}`);
-                    const stockValue = document.getElementById(`stockValue${produit}`);
-                    let stockMax; // Stock maximum en fonction du produit sélectionné
-
-                    // Déterminer le stock maximum en fonction du produit sélectionné
-                    if (produit === '1') {
-                        stockMax = stockMax1;
-                    } else if (produit === '2') {
-                        stockMax = stockMax2;
-                    } else if (produit === '3') {
-                        stockMax = stockMax3;
-                    }
-
-                    let operation; // Déterminer l'opération
-                    if (event.target.classList.contains('ajouter')) {
-                        operation = 'ajouter';
-                    } else {
-                        operation = 'supprimer';
-                    }
-
-                    // Fonction AJAX pour mettre à jour la base de données
-                    function updateStock(produit, montant, operation) {
-                        const xhr = new XMLHttpRequest();
-                        xhr.open("POST", "update_stock.php", true);
-                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                        xhr.onreadystatechange = function() {
-                            if (xhr.readyState == 4 && xhr.status == 200) {
-                                const response = JSON.parse(xhr.responseText);
-                                if (response.success) {
-                                    if (operation === 'ajouter') {
-                                        const nouveauPourcentage = parseFloat(pourcentageStock.style.width) + (parseInt(montant) * 100 / stockMax);
-                                        pourcentageStock.style.width = `${nouveauPourcentage}%`;
-                                        stockValue.textContent = `Stock actuel: ${parseInt(stockValue.textContent.split(': ')[1]) + parseInt(montant)}`;
-                                    } else {
-                                        const nouveauPourcentage = parseFloat(pourcentageStock.style.width) - (parseInt(montant) * 100 / stockMax);
-                                        if (nouveauPourcentage >= 0) {
-                                            pourcentageStock.style.width = `${nouveauPourcentage}%`;
-                                            stockValue.textContent = `Stock actuel: ${parseInt(stockValue.textContent.split(': ')[1]) - parseInt(montant)}`;
-                                        } else {
-                                            alert("La quantité à supprimer est supérieure au stock actuel.");
-                                        }
-                                    }
-                                } else {
-                                    alert(response.message);
-                                }
-                            }
-                        };
-                        xhr.send(`produit=${produit}&montant=${montant}&operation=${operation}`);
-                    }
-
-                    updateStock(produit, montant, operation);
-
-                } else {
-                    alert("Veuillez saisir un montant valide.");
-                }
-            }
-
-            // Ajouter des écouteurs d'événements aux boutons
-            ajouterBoutons.forEach(bouton => {
-                bouton.addEventListener('click', afficherPopup);
-            });
-            supprimerBoutons.forEach
-        })
-        </script>
-    </body>
-    </html>
-    
 
     <?php include_footer(); ?>
 
-    <?php
-$host = 'localhost';
-$dbname = 'niveaudestock';
-$user = 'root';
-$password = '';
+    <script>
+        // Récupérer les boutons et ajouter des écouteurs d'événements
+        const ajouterBoutons = document.querySelectorAll('.ajouter');
+        const supprimerBoutons = document.querySelectorAll('.supprimer');
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // Stocks maximums en JavaScript
+        const stockMax1 = <?php echo $stock_max1; ?>;
+        const stockMax2 = <?php echo $stock_max2; ?>;
+        const stockMax3 = <?php echo $stock_max3; ?>;
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $produit = intval($_POST['produit']);
-        $montant = intval($_POST['montant']);
-        $operation = $_POST['operation'];
+        // Fonction pour afficher le popup et mettre à jour les pourcentages
+        function afficherPopup(event) {
+    const produit = event.target.dataset.produit;
+    const montant = prompt("Entrez le montant à modifier :");
 
-        // Déterminer l'utilisateur (à remplacer par l'utilisateur actuel)
-        if (isset($_SESSION['id_utilisateur'])) {
-            $id_utilisateur = $_SESSION['id_utilisateur'];
+    // Vérifier si un montant valide a été saisi
+    if (montant !== null && !isNaN(montant) && parseInt(montant) > 0) {
+        const pourcentageStock = document.getElementById(`stockProgress${produit}`);
+        const stockValue = document.getElementById(`stockValue${produit}`);
+        let stockMax; // Stock maximum en fonction du produit sélectionné
+
+        // Déterminer le stock maximum en fonction du produit sélectionné
+        if (produit === '1') {
+            stockMax = stockMax1;
+        } else if (produit === '2') {
+            stockMax = stockMax2;
+        } else if (produit === '3') {
+            stockMax = stockMax3;
+        }
+        
+        // Extraire la largeur actuelle en tant que nombre
+        let currentWidth = parseFloat(pourcentageStock.style.width.replace('%', ''));
+        
+        // Vérifier si currentWidth est un nombre valide
+        if (isNaN(currentWidth)) {
+            currentWidth = 0;
+        }
+
+        let currentStock = parseInt(stockValue.textContent.match(/\d+/));
+
+        if (event.target.classList.contains('ajouter')) {
+            if (currentStock + parseInt(montant) <= stockMax) {
+                const nouveauPourcentage = currentWidth + (parseInt(montant) * 100 / stockMax);
+                pourcentageStock.style.width = `${nouveauPourcentage}%`;
+                stockValue.textContent = `Stock actuel: ${currentStock + parseInt(montant)}`;
+
+                // Envoyer la nouvelle quantité à PHP pour mise à jour de la base de données
+                fetch('/../../model/php/update_stock.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        produit: produit,
+                        nouvelleQuantite: currentStock + parseInt(montant)
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur lors de la mise à jour du stock.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Stock mis à jour avec succès:', data);
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    alert('Une erreur est survenue lors de la mise à jour du stock.');
+                });
+            } else {
+                alert("La quantité ajoutée dépasse le stock maximum.");
+            }
         } else {
-            echo json_encode(['success' => false, 'message' => 'Utilisateur non connecté.']);
-            exit;
+            const nouveauPourcentage = currentWidth - (parseInt(montant) * 100 / stockMax);
+            if (nouveauPourcentage >= 0) {
+                pourcentageStock.style.width = `${nouveauPourcentage}%`;
+                stockValue.textContent = `Stock actuel: ${currentStock - parseInt(montant)}`;
+
+                // Envoyer la nouvelle quantité à PHP pour mise à jour de la base de données
+                fetch('/../../model/php/update_stock.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        produit: produit,
+                        nouvelleQuantite: currentStock - parseInt(montant)
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur lors de la mise à jour du stock.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Stock mis à jour avec succès:', data);
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    alert('Une erreur est survenue lors de la mise à jour du stock.');
+                });
+            } else {
+                alert("La quantité à supprimer est supérieure au stock actuel.");
+            }
         }
-
-        if ($operation === 'ajouter') {
-            $id_type_operation = 1; // Id pour l'opération d'ajout
-
-            // Insérer l'opération dans la table stock
-            $stmt = $pdo->prepare("INSERT INTO stock (quantite, id_type_operation, id_produit, id_utilisateur) VALUES (:quantite, :id_type_operation, :produit, :utilisateur)");
-            $stmt->execute([
-                ':quantite' => $montant,
-                ':id_type_operation' => $id_type_operation,
-                ':produit' => $produit,
-                ':utilisateur' => $id_utilisateur,
-            ]);
-
-            // Mettre à jour la quantité de stock
-            $stmt_update = $pdo->prepare("UPDATE stock SET quantite = quantite + :montant WHERE id_produit = :produit");
-            $stmt_update->execute([
-                ':montant' => $montant,
-                ':produit' => $produit,
-            ]);
-
-        } elseif ($operation === 'supprimer') {
-            $id_type_operation = 2; // Id pour l'opération de suppression
-
-            // Insérer l'opération dans la table stock
-            $stmt = $pdo->prepare("INSERT INTO stock (quantite, id_type_operation, id_produit, id_utilisateur) VALUES (:quantite, :id_type_operation, :produit, :utilisateur)");
-            $stmt->execute([
-                ':quantite' => -$montant,
-                ':id_type_operation' => $id_type_operation,
-                ':produit' => $produit,
-                ':utilisateur' => $id_utilisateur,
-            ]);
-
-            // Mettre à jour la quantité de stock
-            $stmt_update = $pdo->prepare("UPDATE stock SET quantite = quantite - :montant WHERE id_produit = :produit AND quantite >= :montant");
-            $stmt_update->execute([
-                ':montant' => $montant,
-                ':produit' => $produit,
-            ]);
-        }
-
-        echo json_encode(['success' => true]);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Requête invalide.']);
+        alert("Veuillez saisir un montant valide.");
     }
-
-} catch (PDOException $e) {
-    echo json_encode(['success' => false, 'message' => 'Erreur de connexion à la base de données : ' . $e->getMessage()]);
 }
-?>
 
+
+        // Ajouter des écouteurs d'événements aux boutons
+        ajouterBoutons.forEach(bouton => {
+            bouton.addEventListener('click', afficherPopup);
+        });
+        supprimerBoutons.forEach(bouton => {
+            bouton.addEventListener('click', afficherPopup);
+        });
+    </script>
+    
 </body>
 </html>
-
-
-
-
-
-
-
-
 
 
 <style>

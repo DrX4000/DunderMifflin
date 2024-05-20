@@ -2,19 +2,73 @@
     include_once __DIR__ . '/includes.php';
     include_once __DIR__ . '/../../model/php/env_settings.php';
 
-    // Stocks actuels
-    $stock1 = 8000;
-    $stock2 = 4000;
-    $stock3 = 12000;
+    // Informations de connexion à la base de données
+    $host = "dundermifflin";
+    $user = "root";
+    $pwd = "";
+    $dbname = "niveaudestock";
+
+    // Créer une connexion
+    $conn = new mysqli($host, $user, $pwd, $dbname);
+
+    // Vérification de la connexion
+    if ($conn->connect_error) {
+        die("Connexion échouée: " . $conn->connect_error);
+    }
+
+    // Récupération de la quantité pour id_produit = 10
+    $id_produit_10 = 10;
+    $sql_stock10 = "SELECT quantite FROM stock WHERE id_produit = $id_produit_10";
+    $result_stock10 = $conn->query($sql_stock10);
+    if ($result_stock10 && $result_stock10->num_rows > 0) {
+        $row_stock10 = $result_stock10->fetch_assoc();
+        $stock10 = $row_stock10['quantite'];
+    } else {
+        $stock10 = 0; // Stock par défaut si aucun résultat trouvé
+    }
+
+    // Récupération de la quantité pour id_produit = 11
+    $id_produit_11 = 11;
+    $sql_stock11 = "SELECT quantite FROM stock WHERE id_produit = $id_produit_11";
+    $result_stock11 = $conn->query($sql_stock11);
+    if ($result_stock11 && $result_stock11->num_rows > 0) {
+        $row_stock11 = $result_stock11->fetch_assoc();
+        $stock11 = $row_stock11['quantite'];
+    } else {
+        $stock11 = 0; // Stock par défaut si aucun résultat trouvé
+    }
+
+    // Récupération de la quantité pour id_produit = 12
+    $id_produit_12 = 12;
+    $sql_stock12 = "SELECT quantite FROM stock WHERE id_produit = $id_produit_12";
+    $result_stock12 = $conn->query($sql_stock12);
+    if ($result_stock12 && $result_stock12->num_rows > 0) {
+        $row_stock12 = $result_stock12->fetch_assoc();
+        $stock12 = $row_stock12['quantite'];
+    } else {
+        $stock12 = 0; // Stock par défaut si aucun résultat trouvé
+    }
+
+    function updateStockQuantity($conn, $id_produit, $newQuantity) {
+        $sql_update_stock = "UPDATE stock SET quantite = ? WHERE id_produit = ?";
+        $stmt = $conn->prepare($sql_update_stock);
+        $stmt->bind_param("ii", $newQuantity, $id_produit);
+        $stmt->execute();
+        $stmt->close();
+    }   
+
+    // Fermeture de la connexion
+    $conn->close();
+
 
     // Stocks maximum
-    $stock_max1 = 10000;
-    $stock_max2 = 6000;
-    $stock_max3 = 15000;
+    $stock_max10 = 10000;
+    $stock_max11 = 6000;
+    $stock_max12 = 15000;
 
-    $pourcentage_stock1 = ($stock1 / $stock_max1) * 100;
-    $pourcentage_stock2 = ($stock2 / $stock_max2) * 100;
-    $pourcentage_stock3 = ($stock3 / $stock_max3) * 100;
+    $pourcentage_stock10 = ($stock10 / $stock_max10) * 100;
+    $pourcentage_stock11 = ($stock11 / $stock_max11) * 100;
+    $pourcentage_stock12 = ($stock12 / $stock_max12) * 100;
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +82,7 @@
 <body>
 
     <?php include_header(); ?>
-
+    
     <main>
         <section class="produits">
             <h1 class = "titre">Materiaux d'emballage</h1>
@@ -36,35 +90,35 @@
             <div class="produit">
                 <h3>Boîte en carton</h3>
                 <div class="boutons">
-                    <button class="ajouter" data-produit="1">Ajouter</button>
-                    <button class="supprimer" data-produit="1">Supprimer</button>
+                    <button class="ajouter" data-produit="10">Ajouter</button>
+                    <button class="supprimer" data-produit="10">Supprimer</button>
                 </div>
                 <div class="progress-container">
-                    <div class="progress-bar" id="stockProgress1" style="background-color: blue; height: 12px; width: <?php echo $pourcentage_stock1; ?>%;"></div>
+                    <div class="progress-bar" id="stockProgress10" style="background-color: blue; height: 12px; width: <?php echo $pourcentage_stock10; ?>%;"></div>
                 </div>
-                <div class="stock1" id="stockValue1">Stock actuel: <?php echo $stock1; ?></div>
+                <div class="stock10" id="stockValue10">Stock actuel: <?php echo $stock10; ?></div>
             </div>
             <div class="produit">
                 <h3>Sac en papier</h3>
                 <div class="boutons">
-                    <button class="ajouter" data-produit="2">Ajouter</button>
-                    <button class="supprimer" data-produit="2">Supprimer</button>
+                    <button class="ajouter" data-produit="11">Ajouter</button>
+                    <button class="supprimer" data-produit="11">Supprimer</button>
                 </div>
                 <div class="progress-container">
-                    <div class="progress-bar" id="stockProgress2" style="background-color: blue; height: 12px; width: <?php echo $pourcentage_stock2; ?>%;"></div>
+                    <div class="progress-bar" id="stockProgress11" style="background-color: blue; height: 12px; width: <?php echo $pourcentage_stock11; ?>%;"></div>
                 </div>
-                <div class="stock2" id="stockValue2">Stock actuel: <?php echo $stock2; ?></div>
+                <div class="stock11" id="stockValue11">Stock actuel: <?php echo $stock11; ?></div>
             </div>
             <div class="produit">
                 <h3>Papier d'emballage</h3>
                 <div class="boutons">
-                    <button class="ajouter" data-produit="3">Ajouter</button>
-                    <button class="supprimer" data-produit="3">Supprimer</button>
+                    <button class="ajouter" data-produit="12">Ajouter</button>
+                    <button class="supprimer" data-produit="12">Supprimer</button>
                 </div>
                 <div class="progress-container">
-                    <div class="progress-bar" id="stockProgress3" style="background-color: blue; height: 12px; width: <?php echo $pourcentage_stock3; ?>%;"></div>
+                    <div class="progress-bar" id="stockProgress12" style="background-color: blue; height: 12px; width: <?php echo $pourcentage_stock12; ?>%;"></div>
                 </div>
-                <div class="stock3" id="stockValue3">Stock actuel: <?php echo $stock3; ?></div>
+                <div class="stock12" id="stockValue12">Stock actuel: <?php echo $stock12; ?></div>
             </div>
 
         </section>
@@ -73,71 +127,128 @@
     <?php include_footer(); ?>
 
     <script>
-        // Récupérer les boutons et ajouter des écouteurs d'événements
-        const ajouterBoutons = document.querySelectorAll('.ajouter');
-        const supprimerBoutons = document.querySelectorAll('.supprimer');
+    // Récupérer les boutons et ajouter des écouteurs d'événements
+    const ajouterBoutons = document.querySelectorAll('.ajouter');
+    const supprimerBoutons = document.querySelectorAll('.supprimer');
 
-        // Stocks maximums en JavaScript
-        const stockMax1 = <?php echo $stock_max1; ?>;
-        const stockMax2 = <?php echo $stock_max2; ?>;
-        const stockMax3 = <?php echo $stock_max3; ?>;
+    // Stocks maximums en JavaScript
+    const stockMax10 = <?php echo $stock_max10; ?>;
+    const stockMax11 = <?php echo $stock_max11; ?>;
+    const stockMax12 = <?php echo $stock_max12; ?>;
 
-        // Fonction pour afficher le popup et mettre à jour les pourcentages
-        function afficherPopup(event) {
-            const produit = event.target.dataset.produit;
-            const montant = prompt("Entrez le montant à modifier :");
+    // Fonction pour afficher le popup et mettre à jour les pourcentages
+    function afficherPopup(event) {
+        const produit = event.target.dataset.produit;
+        const montant = prompt("Entrez le montant à modifier :");
 
-            // Vérifier si un montant valide a été saisi
-            if (montant !== null && !isNaN(montant) && parseInt(montant) > 0) {
-                const pourcentageStock = document.getElementById(`stockProgress${produit}`);
-                const stockValue = document.getElementById(`stockValue${produit}`);
-                let stockMax; // Stock maximum en fonction du produit sélectionné
+        // Vérifier si un montant valide a été saisi
+        if (montant !== null && !isNaN(montant) && parseInt(montant) > 0) {
+            const pourcentageStock = document.getElementById(`stockProgress${produit}`);
+            const stockValue = document.getElementById(`stockValue${produit}`);
+            let stockMax; // Stock maximum en fonction du produit sélectionné
 
-                // Déterminer le stock maximum en fonction du produit sélectionné
-                if (produit === '1') {
-                    stockMax = stockMax1;
-                } else if (produit === '2') {
-                    stockMax = stockMax2;
-                } else if (produit === '3') {
-                    stockMax = stockMax3;
-                }
-                
-                if (event.target.classList.contains('ajouter')) {
-                    const nouveauPourcentage = parseFloat(pourcentageStock.style.width) + (parseInt(montant) * 100 / stockMax);
+            // Déterminer le stock maximum en fonction du produit sélectionné
+            if (produit === '10') {
+                stockMax = stockMax10;
+            } else if (produit === '11') {
+                stockMax = stockMax11;
+            } else if (produit === '12') {
+                stockMax = stockMax12;
+            }
+
+            // Extraire la largeur actuelle en tant que nombre
+            let currentWidth = parseFloat(pourcentageStock.style.width.replace('%', ''));
+
+            // Vérifier si currentWidth est un nombre valide
+            if (isNaN(currentWidth)) {
+                currentWidth = 0;
+            }
+
+            let currentStock = parseInt(stockValue.textContent.match(/\d+/)[0]);
+
+            if (event.target.classList.contains('ajouter')) {
+                if (currentStock + parseInt(montant) <= stockMax) {
+                    const nouveauPourcentage = currentWidth + (parseInt(montant) * 100 / stockMax);
                     pourcentageStock.style.width = `${nouveauPourcentage}%`;
-                    stockValue.textContent = `Stock actuel: ${parseInt(stockValue.textContent) + parseInt(montant)}`;
+                    stockValue.textContent = `Stock actuel: ${currentStock + parseInt(montant)}`;
+
+                    // Envoyer la nouvelle quantité à PHP pour mise à jour de la base de données
+                    fetch('/../../model/php/update_stock.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            produit: produit,
+                            nouvelleQuantite: currentStock + parseInt(montant)
+                        })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erreur lors de la mise à jour du stock.');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Stock mis à jour avec succès:', data);
+                    })
+                    .catch(error => {
+                        console.error('Erreur:', error);
+                        alert('Une erreur est survenue lors de la mise à jour du stock.');
+                    });
                 } else {
-                    const nouveauPourcentage = parseFloat(pourcentageStock.style.width) - (parseInt(montant) * 100 / stockMax);
-                    if (nouveauPourcentage >= 0) {
-                        pourcentageStock.style.width = `${nouveauPourcentage}%`;
-                        stockValue.textContent = `Stock actuel: ${parseInt(stockValue.textContent) - parseInt(montant)}`;
-                    } else {
-                        alert("La quantité à supprimer est supérieure au stock actuel.");
-                    }
+                    alert("La quantité ajoutée dépasse le stock maximum.");
                 }
             } else {
-                alert("Veuillez saisir un montant valide.");
-            }
-        }
+                const nouveauPourcentage = currentWidth - (parseInt(montant) * 100 / stockMax);
+                if (nouveauPourcentage >= 0) {
+                    pourcentageStock.style.width = `${nouveauPourcentage}%`;
+                    stockValue.textContent = `Stock actuel: ${currentStock - parseInt(montant)}`;
 
-        // Ajouter des écouteurs d'événements aux boutons
-        ajouterBoutons.forEach(bouton => {
-            bouton.addEventListener('click', afficherPopup);
-        });
-        supprimerBoutons.forEach(bouton => {
-            bouton.addEventListener('click', afficherPopup);
-        });
+                    // Envoyer la nouvelle quantité à PHP pour mise à jour de la base de données
+                    fetch('/../../model/php/update_stock.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            produit: produit,
+                            nouvelleQuantite: currentStock - parseInt(montant)
+                        })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erreur lors de la mise à jour du stock.');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Stock mis à jour avec succès:', data);
+                    })
+                    .catch(error => {
+                        console.error('Erreur:', error);
+                        alert('Une erreur est survenue lors de la mise à jour du stock.');
+                    });
+                } else {
+                    alert("La quantité à supprimer est supérieure au stock actuel.");
+                }
+            }
+        } else {
+            alert("Veuillez saisir un montant valide.");
+        }
+    }
+
+    // Ajouter des écouteurs d'événements aux boutons
+    ajouterBoutons.forEach(bouton => {
+        bouton.addEventListener('click', afficherPopup);
+    });
+    supprimerBoutons.forEach(bouton => {
+        bouton.addEventListener('click', afficherPopup);
+    });
     </script>
+    
 </body>
 </html>
-
-
-
-
-
-
-
-
 
 
 <style>
@@ -165,7 +276,7 @@
         text-align: center;
     }
 
-    div.stock1, div.stock2, div.stock3 {
+    div.stock10, div.stock11, div.stock12 {
         font-size: 2em;
         color: #333;
         text-align: center;
