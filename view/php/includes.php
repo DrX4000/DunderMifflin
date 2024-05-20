@@ -19,7 +19,7 @@
                     <img src="/view/php/Images/logo.png" alt="Company Logo">
                     <h1>Dunder Mifflin</h1>
                 </div>
-             <a href="/../../logController.php" class="home-button">LogOut</a>
+             <a href="/../../index.php" class="home-button">LogOut</a>
              </div>
         <style>
             header {
