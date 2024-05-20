@@ -62,9 +62,9 @@
 
 
     // Stocks maximum
-    $stock_max7 = 10000;
-    $stock_max8 = 6000;
-    $stock_max9 = 15000;
+    $stock_max7 = 30000;
+    $stock_max8 = 5000;
+    $stock_max9 = 10000;
 
     $pourcentage_stock7 = ($stock7 / $stock_max7) * 100;
     $pourcentage_stock8 = ($stock8 / $stock_max8) * 100;

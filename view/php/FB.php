@@ -62,7 +62,7 @@
 
 
     // Stocks maximum
-    $stock_max1 = 10000;
+    $stock_max1 = 100000;
     $stock_max2 = 6000;
     $stock_max3 = 15000;
 

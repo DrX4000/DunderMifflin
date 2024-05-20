@@ -65,8 +65,3 @@
     }
 ?>
 
-    <script>
-    // Sauvegarder l'URL actuelle avant de naviguer
-    sessionStorage.setItem('previousPage', window.location.href);
-    </script>
-

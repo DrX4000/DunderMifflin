@@ -15,7 +15,7 @@ require_once("DBModel.php");
 class UserModel extends DBModel {
  
  
-    /**
+     /*
      * @return an associative array of all employees with first_name, last_name, id, creation_date (not formatted)
      */
     function check_login(string $login, string $password) {
