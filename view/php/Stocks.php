@@ -19,10 +19,10 @@
         </style>
         
         <ul>
-            <li><button onclick="window.location.href = '/view/php/FB.php'">Fourniture de bureau</button></li>
-            <li><button onclick="window.location.href = '/view/php/Pap.php'">Papèterie</button></li>
-            <li><button onclick="window.location.href = '/view/php/FA.php'">Fourniture artisanats</button></li>
-            <li><button onclick="window.location.href = '/view/php/ME.php'">Matériaux d'emballage</button></li>
+            <li><button onclick="window.location.href = '/tai/tai_app_2023_2024_mouse/project/view/php/FB.php'">Fourniture de bureau</button></li>
+            <li><button onclick="window.location.href = '/tai/tai_app_2023_2024_mouse/project/view/php/Pap.php'">Papèterie</button></li>
+            <li><button onclick="window.location.href = '/tai/tai_app_2023_2024_mouse/project/view/php/FA.php'">Fourniture artisanats</button></li>
+            <li><button onclick="window.location.href = '/tai/tai_app_2023_2024_mouse/project/view/php/ME.php'">Matériaux d'emballage</button></li>
         </ul>  
     </main>
 
