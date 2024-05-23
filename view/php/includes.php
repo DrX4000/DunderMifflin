@@ -16,7 +16,7 @@
         <header>
             <div class="container">
                 <div class="logo">
-                    <img src="/view/php/Images/logo.png" alt="Company Logo">
+                    <img src="/tai/tai_app_2023_2024_mouse/project/view/php/Images/logo.png" alt="Company Logo">
                     <h1>Dunder Mifflin</h1>
                 </div>
              <a href="/tai/tai_app_2023_2024_mouse/project/index.php" class="home-button">LogOut</a>

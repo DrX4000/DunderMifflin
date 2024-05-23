@@ -7,10 +7,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Assurez-vous que les données sont bien définies
     if (isset($data->produit) && isset($data->nouvelleQuantite)) {
         // Connexion à la base de données
-        $host = "dundermifflin";
-        $user = "root";
-        $pwd = "";
-        $dbname = "niveaudestock";
+        $host = "localhost";
+        $user = "tai_app_2023_2024_mouse";
+        $pwd = "RLWNNSO3OO";
+        $dbname = "tai_app_2023_2024_mouse";
 
         $conn = new mysqli($host, $user, $pwd, $dbname);
 

@@ -1,12 +1,16 @@
 <?php
     include_once __DIR__ . '/includes.php';
-    include_once __DIR__ . '/../../model/php/env_settings.php';
+    include_once __DIR__ . '/tai/tai_app_2023_2024_mouse/project/model/php/env_settings.php';
 
     // Informations de connexion à la base de données
-    $host = "dundermifflin";
-    $user = "root";
-    $pwd = "";
-    $dbname = "niveaudestock";
+    $host = "localhost";
+    $user = "tai_app_2023_2024_mouse";
+    $pwd = "RLWNNSO3OO";
+    $dbname = "tai_app_2023_2024_mouse";
+
+    // Activer les rapports d'erreurs
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
 
     // Créer une connexion
     $conn = new mysqli($host, $user, $pwd, $dbname);
@@ -15,6 +19,8 @@
     if ($conn->connect_error) {
         die("Connexion échouée: " . $conn->connect_error);
     }
+
+
 
     // Récupération de la quantité pour id_produit = 1
     $id_produit_1= 1;
@@ -173,7 +179,7 @@
                 stockValue.textContent = `Stock actuel: ${currentStock + parseInt(montant)}`;
 
                 // Envoyer la nouvelle quantité à PHP pour mise à jour de la base de données
-                fetch('/../../model/php/update_stock.php', {
+                fetch('/tai/tai_app_2023_2024_mouse/project/model/php/update_stock.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -206,7 +212,7 @@
                 stockValue.textContent = `Stock actuel: ${currentStock - parseInt(montant)}`;
 
                 // Envoyer la nouvelle quantité à PHP pour mise à jour de la base de données
-                fetch('/../../model/php/update_stock.php', {
+                fetch('/tai/tai_app_2023_2024_mouse/project/model/php/update_stock.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
